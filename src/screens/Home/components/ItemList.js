@@ -74,7 +74,7 @@ export default function ItemList({
       numColumns={2}
       bounces={false}
       scrollEventThrottle={16}
-      style={{ flex: 1 }}
+      style={styles.list}
       renderScrollComponent={(props) => (
         <Animated.ScrollView
           { ...props }
@@ -90,6 +90,9 @@ export default function ItemList({
 };
 
 const styles = StyleSheet.create({
+  list: {
+    flex: 1
+  },
   listItem: {
     borderRadius: 15,
     backgroundColor: 'white',
