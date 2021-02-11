@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 const Item = ({ thumbnail, title, price, onPress }) => (
   <TouchableOpacity
@@ -17,20 +18,9 @@ const Item = ({ thumbnail, title, price, onPress }) => (
       source={{ uri: thumbnail }}
       style={styles.image}
     />
-    <View style={{
-      flex: 1,  
-      padding: 5,
-      justifyContent: 'space-between'
-    }}>
-      <Text style={{
-        fontWeight: '600',
-        color: 'black'
-      }}>{title}</Text>
-      <Text style={{
-        fontWeight: 'bold',
-        color: 'black',
-        fontSize: 16
-      }}>{`$${price}`}</Text>
+    <View style={styles.itemDetails}>
+      <Text style={styles.itemTitle}>{title}</Text>
+      <Text style={styles.itemPrice}>{`$${price}`}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -38,7 +28,8 @@ const Item = ({ thumbnail, title, price, onPress }) => (
 export default function ItemList({
   data = [],
   isLoading,
-  onPress
+  onPress,
+  scrollY
 }) {
   const keyExtractor = item => item.id;
 
@@ -64,7 +55,7 @@ export default function ItemList({
 
   if (isLoading) {
     return <ActivityIndicator
-      size='large'
+      size='small'
       color='black'
     />
   }
@@ -82,8 +73,20 @@ export default function ItemList({
       renderItem={renderItem}
       numColumns={2}
       bounces={false}
+      scrollEventThrottle={16}
+      style={{ flex: 1 }}
+      renderScrollComponent={(props) => (
+        <Animated.ScrollView
+          { ...props }
+          onScroll={ Animated.event(
+            [
+              { nativeEvent: { contentOffset: { y: scrollY } } }
+            ]
+          )}
+        />
+      )}
     />
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -116,5 +119,19 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     resizeMode: 'contain'
+  },
+  itemDetails: {
+    flex: 1,  
+    padding: 5,
+    justifyContent: 'space-between'
+  },
+  itemTitle: {
+    fontWeight: '600',
+    color: 'black'
+  },
+  itemPrice: {
+    fontWeight: 'bold',
+    color: 'black',
+    fontSize: 16
   }
 });

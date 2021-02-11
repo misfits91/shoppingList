@@ -7,9 +7,13 @@ import {
   Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Animated from 'react-native-reanimated';
 
 export default function InputSearch({
-  onSubmitEditing
+  onSubmitEditing,
+  translateY,
+  height,
+  opacity
 }) {
   const [value, setValue] = useState('');
 
@@ -20,37 +24,44 @@ export default function InputSearch({
   const handleClearInput = () => setValue('');
 
   return (
-    <View style={styles.container}>
-      <Icon
-        name='search'
-        color='black'
-        size={20}
-        style={styles.iconSearch}
-      />
-      <TextInput
-        autoCapitalize='none'
-        autoCorrect={false}
-        clearButtonMode='always'
-        placeholder='Buscar...'
-        style={styles.input}
-        value={value}
-        onChangeText={onChangeText}
-        onSubmitEditing={handleSubmit}
-        returnKeyLabel='Buscar'
-        returnKeyType='search'
-        underlineColorAndroid='transparent'
-      />
-      {Platform.OS === 'android' && value.length > 0 && <TouchableOpacity
-        style={styles.closeButtonParent}
-        onPress={handleClearInput}>
-        <View style={styles.closeButton}>
-          <Icon
-            name='close'
-            color='white'
-          />
-        </View>
-      </TouchableOpacity>}
-    </View>
+    <Animated.View style={{
+      height,
+      opacity,
+      transform: [{ translateY }],
+      justifyContent: 'center'
+    }}>
+      <View style={styles.container}>
+        <Icon
+          name='search'
+          color='black'
+          size={20}
+          style={styles.iconSearch}
+        />
+        <TextInput
+          autoCapitalize='none'
+          autoCorrect={false}
+          clearButtonMode='always'
+          placeholder='Buscar...'
+          style={styles.input}
+          value={value}
+          onChangeText={onChangeText}
+          onSubmitEditing={handleSubmit}
+          returnKeyLabel='Buscar'
+          returnKeyType='search'
+          underlineColorAndroid='transparent'
+        />
+        {Platform.OS === 'android' && value.length > 0 && <TouchableOpacity
+          style={styles.closeButtonParent}
+          onPress={handleClearInput}>
+          <View style={styles.closeButton}>
+            <Icon
+              name='close'
+              color='white'
+            />
+          </View>
+        </TouchableOpacity>}
+      </View>
+    </Animated.View>
   );
 }
 

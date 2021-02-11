@@ -2,14 +2,12 @@ import React from 'react';
 import { StatusBar, SafeAreaView, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-
 /** routes */
 import Routes from './src/navigation';
-
 /** reducer */
 import rootReducer from './src/reducer';
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer);
 
 const App = () => (
   <Provider store={store}>
