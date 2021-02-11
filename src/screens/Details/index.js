@@ -17,7 +17,9 @@ export default function Details({ navigation }) {
   const handleBack = () => navigation.goBack();
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      bounces={false}
+      contentContainerStyle={styles.container}>
       <Back
         onPress={handleBack}
       />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, SafeAreaView } from 'react-native';
+import { StatusBar, SafeAreaView, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -14,7 +14,7 @@ const store = createStore(rootReducer)
 const App = () => (
   <Provider store={store}>
     <StatusBar
-      barStyle='light-content'
+      barStyle={Platform.OS === 'android' ? 'light-content' : 'dark-content'}
       backgroundColor='black'
     />
     <SafeAreaView style={{ flex: 0 }} />

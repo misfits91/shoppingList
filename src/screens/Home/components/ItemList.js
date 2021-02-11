@@ -81,6 +81,7 @@ export default function ItemList({
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       numColumns={2}
+      bounces={false}
     />
   )
 };
@@ -91,6 +92,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 10,
     elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
     paddingVertical: 5,
     paddingHorizontal: 3,
     flex: 1/2

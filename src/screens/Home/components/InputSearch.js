@@ -3,7 +3,8 @@ import {
   View,
   TextInput,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -39,7 +40,7 @@ export default function InputSearch({
         returnKeyType='search'
         underlineColorAndroid='transparent'
       />
-      {value.length > 0 && <TouchableOpacity
+      {Platform.OS === 'android' && value.length > 0 && <TouchableOpacity
         style={styles.closeButtonParent}
         onPress={handleClearInput}>
         <View style={styles.closeButton}>
